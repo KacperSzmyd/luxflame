@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="center">Twój koszyk</h1>
+
+{% if products %}
+    <ul class="products">
+        {% for item in products %}
+        <li class="product">
+            <h3>{{ item.product.name }}</h3>
+            <p>Ilość: {{ item.quantity }}</p>
+            <p>Suma: {{ item.subtotal }} PLN</p>
+        </li>
+        {% endfor %}
+    </ul>
+    <h2 class="center">Razem: {{ total }} PLN</h2>
+{% else %}
+    <p class="center">Koszyk jest pusty.</p>
+{% endif %}
+
+<a href="{{ url_for('main.index') }}">← Wróć do sklepu</a>
+{% endblock %}

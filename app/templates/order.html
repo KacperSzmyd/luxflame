@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="center">Zamówienie</h1>
+
+<form method="POST" class="order-form">
+    <input type="text" name="name" placeholder="Imię i nazwisko" required>
+    <input type="email" name="email" placeholder="Adres e-mail" required>
+    <textarea name="address" placeholder="Adres dostawy" required></textarea>
+    <button type="submit">Zamawiam</button>
+</form>
+
+<a href="{{ url_for('main.cart') }}">← Wróć do koszyka</a>
+{% endblock %}

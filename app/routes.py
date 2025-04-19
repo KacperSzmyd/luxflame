@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, session, redirect, url_for
-from .models import Product
+from flask import Blueprint, render_template, session, redirect, url_for, request, flash
+from .models import Product, Order, OrderItem
+from app import db
 
 main = Blueprint("main", __name__)
 
@@ -47,3 +48,41 @@ def cart():
     total = round(sum([p["subtotal"] for p in products]), 2)
 
     return render_template("cart.html", products=products, total=total)
+
+
+@main.route("/order", methods=["POST", "GET"])
+def order():
+    cart = session.get("cart", [])
+    if not cart:
+        flash("Koszyk jest pusty!")
+        return redirect(url_for("main.cart"))
+
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        address = request.form.get("address")
+
+        if not name or not email or not address:
+            flash("Wszystkie pola są wymagane.")
+            return redirect(url_for("main.order"))
+
+        new_order = Order(
+            customer_name=name, customer_email=email, customer_address=address
+        )
+        db.session.add(new_order)
+        db.session.commit()
+
+        for item in cart:
+            order_item = OrderItem(
+                order_id=new_order.id,
+                product_id=item["product_id"],
+                quantity=item["quantity"],
+            )
+            db.session.add(order_item)
+
+        db.session.commit()
+        session.pop("cart", None)
+        flash("Dziekujemy za zamowienie!")
+
+        return redirect(url_for("main.index"))
+    return render_template("order.html")

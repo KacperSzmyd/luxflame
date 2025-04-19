@@ -7,7 +7,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('main.index') }}">Lux Flame</a>
+        </div>
+        <div class="menu">
+            <div class="dropdown">
+                <button class="dropbtn">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('main.about') }}">O nas</a>
+                    <a href="{{ url_for('main.gallery') }}">Galeria</a>
+                    <a href="{{ url_for('main.cart') }}">Koszyk</a>
+                    <a href="{{ url_for('main.terms') }}">Regulamin</a>
+                    <a href="{{ url_for('main.contact') }}">Kontakt</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
 
 </body>

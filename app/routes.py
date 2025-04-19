@@ -11,6 +11,23 @@ def index():
     return render_template("index.html", products=products)
 
 
+@main.route("/about")
+def about():
+    return render_template("about.html")
+
+@main.route("/gallery")
+def gallery():
+    return render_template("gallery.html")
+
+@main.route("/terms")
+def terms():
+    return render_template("terms.html")
+
+@main.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
 @main.route("/add-to-cart/<int:product_id>")
 def add_to_cart(product_id):
     cart = session.get("cart", [])

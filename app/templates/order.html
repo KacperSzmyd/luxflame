@@ -1,15 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center">Zamówienie</h1>
+<h1 class="center">Dane do zamówienia</h1>
 
+<div class="card">
 <form method="POST" class="order-form">
-    <input type="text" name="name" placeholder="Imię i nazwisko" required>
+    <div class="form-group">
+        <input type="text" name="first_name" placeholder="Imię" required>
+        <input type="text" name="last_name" placeholder="Nazwisko" required>
+    </div>
+
+    <input type="text" name="company_name" placeholder="Nazwa firmy (opcjonalnie)">
+    <input type="text" name="nip" placeholder="NIP (opcjonalnie)">
+    
+    <input type="text" name="street" placeholder="Ulica i numer domu" required>
+    <input type="text" name="city" placeholder="Miasto" required>
+    <input type="text" name="postal_code" placeholder="Kod pocztowy" required>
+    
+    <input type="text" name="phone" placeholder="Numer telefonu" required>
     <input type="email" name="email" placeholder="Adres e-mail" required>
-    <textarea name="address" placeholder="Adres dostawy" required></textarea>
+    
+    <textarea name="notes" placeholder="Uwagi do zamówienia (opcjonalne)"></textarea>
+
     <button type="submit">Zamawiam</button>
 </form>
-
-<div class="center" style="text-align: center;">
-    <a class="button-link" href="{{ url_for('main.cart') }}">← Wróć do koszyka</a>
 </div>
 {% endblock %}

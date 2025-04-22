@@ -249,3 +249,24 @@ ul.products {
 .remove-btn button:hover {
     color: #e00;
 }
+
+
+.card {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 2px solid #02a131;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.form-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-group input {
+    flex: 1;
+    min-width: 45%;
+}

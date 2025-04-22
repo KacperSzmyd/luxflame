@@ -12,10 +12,16 @@ class Product(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(120), nullable=False)
-    customer_email = db.Column(db.String(120), nullable=False)
-    customer_address = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.today())
+    customer_first_name = db.Column(db.String(100), nullable=False)
+    customer_last_name = db.Column(db.String(100), nullable=False)
+    company_name = db.Column(db.String(150))
+    company_nip = db.Column(db.String(20))
+    street = db.Column(db.String(150), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    postal_code = db.Column(db.String(10), nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    notes = db.Column(db.Text)
 
     items = db.relationship("OrderItem", backref="order", lazy=True)
 

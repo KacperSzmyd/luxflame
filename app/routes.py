@@ -55,7 +55,7 @@ def product_details(product_id):
     return render_template("product.html", product=product)
 
 
-@main.route("/add-to-cart/<int:product_id>")
+@main.route("/add-to-cart/<int:product_id>", methods=["POST"])
 def add_to_cart(product_id):
     cart = session.get("cart", [])
 
@@ -143,7 +143,15 @@ def order():
         notes = request.form.get("notes")
 
         # Walidacja wymaganych pól
-        required_fields = [first_name, last_name, street, city, postal_code, phone, email]
+        required_fields = [
+            first_name,
+            last_name,
+            street,
+            city,
+            postal_code,
+            phone,
+            email,
+        ]
         if not all(required_fields):
             flash("Wszystkie wymagane pola muszą być wypełnione.")
             return redirect(url_for("main.order"))
@@ -159,7 +167,7 @@ def order():
             postal_code=postal_code,
             phone=phone,
             email=email,
-            notes=notes or None
+            notes=notes or None,
         )
         db.session.add(new_order)
         db.session.commit()

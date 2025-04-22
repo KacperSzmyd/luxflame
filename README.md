@@ -51,7 +51,6 @@ No user registration, just smooth browsing, cart management, and order placement
     flask --app run run
 
 ✨ To-Do
- Project setup & folder structure
 
  Product list view
 

@@ -5,5 +5,5 @@ app = create_app()
 app.static_folder = os.path.join(os.path.dirname(__file__), "static")
 
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
     app.run(debug=True)

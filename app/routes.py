@@ -130,20 +130,41 @@ def order():
         return redirect(url_for("main.cart"))
 
     if request.method == "POST":
-        name = request.form.get("name")
+        # Pobierz dane z formularza
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        company_name = request.form.get("company_name")
+        nip = request.form.get("nip")
+        street = request.form.get("street")
+        city = request.form.get("city")
+        postal_code = request.form.get("postal_code")
+        phone = request.form.get("phone")
         email = request.form.get("email")
-        address = request.form.get("address")
+        notes = request.form.get("notes")
 
-        if not name or not email or not address:
-            flash("Wszystkie pola są wymagane.")
+        # Walidacja wymaganych pól
+        required_fields = [first_name, last_name, street, city, postal_code, phone, email]
+        if not all(required_fields):
+            flash("Wszystkie wymagane pola muszą być wypełnione.")
             return redirect(url_for("main.order"))
 
+        # Utwórz zamówienie
         new_order = Order(
-            customer_name=name, customer_email=email, customer_address=address
+            customer_first_name=first_name,
+            customer_last_name=last_name,
+            company_name=company_name or None,
+            company_nip=nip or None,
+            street=street,
+            city=city,
+            postal_code=postal_code,
+            phone=phone,
+            email=email,
+            notes=notes or None
         )
         db.session.add(new_order)
         db.session.commit()
 
+        # Dodaj produkty do zamówienia
         for item in cart:
             order_item = OrderItem(
                 order_id=new_order.id,
@@ -153,8 +174,11 @@ def order():
             db.session.add(order_item)
 
         db.session.commit()
+
+        # Wyczyść koszyk
         session.pop("cart", None)
-        flash("Dziekujemy za zamowienie!")
+        flash("Dziękujemy za zamówienie!")
 
         return redirect(url_for("main.index"))
+
     return render_template("order.html")

@@ -28,6 +28,30 @@ def contact():
     return render_template("contact.html")
 
 
+@main.route('/product/<int:product_id>', methods=['POST', 'GET'])
+def product_details(product_id):
+    product = Product.query.get_or_404(product_id)
+    
+    if request.method == 'POST':
+        quatnity = int(request.form.get("quantity", 1))
+        cart = session.get('cart', [])
+        
+        for item in cart:
+            if item['product_id'] == product_id:
+                item['quantity'] += quatnity
+                break
+        else:
+            cart.append({"product_id": product_id, "quantity": quatnity})
+            
+        session['cart'] = cart
+        session.modified = True
+
+        flash("Dodano do koszyka.")
+        return redirect(url_for('main.index'))
+    
+    return render_template('product.html', product=product)
+        
+
 @main.route("/add-to-cart/<int:product_id>")
 def add_to_cart(product_id):
     cart = session.get("cart", [])

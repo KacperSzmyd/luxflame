@@ -5,13 +5,15 @@
     <div class="products">
         {% for product in products %}
             <div class="product">
-                <img src="{{ url_for('static', filename='images/' ~ product.image_filename) }}" alt="{{ product.name }}">
+                <a href="{{ url_for('main.product_details', product_id=product.id) }}">
+                    <img src="{{ url_for('static', filename='images/' ~ product.image_filename) }}" alt="{{ product.name }}">
+                </a>
                 <h3>{{ product.name }}</h3>
                 <p>{{ product.description }}</p>
                 <strong>{{ product.price }} PLN</strong>
                 <br>
-                <a href="{{ url_for('main.add_to_cart', product_id=product.id) }}">Dodaj do koszyka</a>
             </div>
+
         {% endfor %}
             
     </div>

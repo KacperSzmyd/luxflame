@@ -109,6 +109,11 @@ h1.center {
     color: white;
 }
 
+.product:hover .quantity-form button,
+.product:hover .remove-btn button {
+    color: #fff;
+}
+
 /* Szczegóły produktu */
 .product-detail {
     display: flex;

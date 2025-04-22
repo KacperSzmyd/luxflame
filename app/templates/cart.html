@@ -6,8 +6,23 @@
     <ul class="products">
         {% for item in products %}
         <li class="product">
+            <form method="POST" action="{{ url_for('main.remove_from_cart', product_id=item.product.id) }}" class="remove-btn">
+                <button type="submit" title="Usuń">✕</button>
+            </form>
+    
             <h3>{{ item.product.name }}</h3>
-            <p>Ilość: {{ item.quantity }}</p>
+            <p>
+                Ilość:
+                <form class="quantity-form" method="POST" action="{{ url_for('main.update_cart', product_id=item.product.id, action='decrease') }}">
+                    <button type="submit">−</button>
+                </form>
+    
+                {{ item.quantity }}
+    
+                <form class="quantity-form" method="POST" action="{{ url_for('main.update_cart', product_id=item.product.id, action='increase') }}">
+                    <button type="submit">+</button>
+                </form>
+            </p>
             <p>Suma: {{ item.subtotal }} PLN</p>
         </li>
         {% endfor %}

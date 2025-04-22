@@ -15,42 +15,45 @@ def index():
 def about():
     return render_template("about.html")
 
+
 @main.route("/gallery")
 def gallery():
     return render_template("gallery.html")
 
+
 @main.route("/terms")
 def terms():
     return render_template("terms.html")
+
 
 @main.route("/contact")
 def contact():
     return render_template("contact.html")
 
 
-@main.route('/product/<int:product_id>', methods=['POST', 'GET'])
+@main.route("/product/<int:product_id>", methods=["POST", "GET"])
 def product_details(product_id):
     product = Product.query.get_or_404(product_id)
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         quatnity = int(request.form.get("quantity", 1))
-        cart = session.get('cart', [])
-        
+        cart = session.get("cart", [])
+
         for item in cart:
-            if item['product_id'] == product_id:
-                item['quantity'] += quatnity
+            if item["product_id"] == product_id:
+                item["quantity"] += quatnity
                 break
         else:
             cart.append({"product_id": product_id, "quantity": quatnity})
-            
-        session['cart'] = cart
+
+        session["cart"] = cart
         session.modified = True
 
         flash("Dodano do koszyka.")
-        return redirect(url_for('main.index'))
-    
-    return render_template('product.html', product=product)
-        
+        return redirect(url_for("main.index"))
+
+    return render_template("product.html", product=product)
+
 
 @main.route("/add-to-cart/<int:product_id>")
 def add_to_cart(product_id):
@@ -89,6 +92,34 @@ def cart():
     total = round(sum([p["subtotal"] for p in products]), 2)
 
     return render_template("cart.html", products=products, total=total)
+
+
+@main.route("/update-cart/<int:product_id>/<action>", methods=["POST"])
+def update_cart(product_id, action):
+    cart = session.get("cart", [])
+
+    for item in cart:
+        if item["product_id"] == product_id:
+            if action == "increase":
+                item["quantity"] += 1
+            elif action == "decrease":
+                item["quantity"] = max(1, item["quantity"] - 1)
+            break
+
+    session["cart"] = cart
+    session.modified = True
+    return redirect(url_for("main.cart"))
+
+
+@main.route("/remove-from-cart/<int:product_id>", methods=["POST"])
+def remove_from_cart(product_id):
+    cart = session.get("cart", [])
+    cart = [item for item in cart if item["product_id"] != product_id]
+
+    session["cart"] = cart
+    session.modified = True
+
+    return redirect(url_for("main.cart"))
 
 
 @main.route("/order", methods=["POST", "GET"])

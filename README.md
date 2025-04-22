@@ -3,7 +3,7 @@
 An elegant, minimalist e-commerce web app built with Flask for showcasing and selling premium handcrafted lighters.  
 No user registration required — just browse, add to cart, and order.
 
-![Build](https://img.shields.io/github/actions/workflow/status/KacperSzmyd/tomek-sklep/tests.yml?branch=main)
+![Build](https://img.shields.io/github/actions/workflow/status/KacperSzmyd/luxflame/tests.yml?branch=main)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![Flask](https://img.shields.io/badge/flask-2.x-lightgrey)
 
@@ -30,25 +30,7 @@ No user registration required — just browse, add to cart, and order.
 | Frontend    | HTML5 + CSS (custom dark theme) |
 | Templating  | Jinja2           |
 | Storage     | Flask `session`  |
-
----
-
-
-🗂 Project Structure
-root/
-├── app/
-│   ├── static/
-│   ├── templates/
-│   ├── models.py
-│   ├── routes.py
-│   └── ...
-├── tests/
-│   ├── test_cart.py
-│   ├── test_order.py
-│   └── ...
-├── migrations/
-├── run.py
-└── README.md
+| Testing     | Pytest
 
 
 ---

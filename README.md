@@ -1,18 +1,22 @@
-# LuxFlame – Flask Web Store for Handcrafted Lighters
+# 🔥 Lux Flame — Handcrafted Lighters Shop
 
-A minimal, stylish online store built with Flask for selling premium handcrafted lighters.  
-No user registration, just smooth browsing, cart management, and order placement.  
+An elegant, minimalist e-commerce web app built with Flask for showcasing and selling premium handcrafted lighters.  
+No user registration required — just browse, add to cart, and order.
+
+![Build](https://img.shields.io/github/actions/workflow/status/KacperSzmyd/tomek-sklep/tests.yml?branch=main)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![Flask](https://img.shields.io/badge/flask-2.x-lightgrey)
 
 ---
 
-## 🔥 Features
+## 🌟 Features
 
-- 🖼️ Product catalog with images and detailed descriptions
-- 🛒 Session-based shopping cart (no login required)
-- 📬 Order form (name, email, shipping address)
-- 💾 Database-driven structure using SQLAlchemy
-- 📱 Fully responsive dark layout – desktop & mobile
-- 🧪 Basic test suite (optional)
+- 🛒 View a catalog of products
+- 🧺 Add items to cart, update quantity, remove items
+- 📦 Complete order form with delivery and contact info
+- ✅ Form validation with error messages
+- 🎨 Dark, stylish and responsive UI with custom hover effects
+- 🧪 Full test suite using `pytest` + GitHub Actions for CI
 
 ---
 
@@ -28,6 +32,27 @@ No user registration, just smooth browsing, cart management, and order placement
 | Storage     | Flask `session`  |
 
 ---
+
+
+🗂 Project Structure
+root/
+├── app/
+│   ├── static/
+│   ├── templates/
+│   ├── models.py
+│   ├── routes.py
+│   └── ...
+├── tests/
+│   ├── test_cart.py
+│   ├── test_order.py
+│   └── ...
+├── migrations/
+├── run.py
+└── README.md
+
+
+---
+
 
 ## ⚙️ How to Run
 
@@ -52,17 +77,8 @@ No user registration, just smooth browsing, cart management, and order placement
 
 ✨ To-Do
 
- Product list view
-
- Product detail page
-
- Cart add/remove functionality
-
- Order form & confirmation
-
  Responsive layout
 
- Basic tests (optional)
 
 ---
 

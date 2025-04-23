@@ -21,6 +21,7 @@ class Order(db.Model):
     phone = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     notes = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     items = db.relationship("OrderItem", backref="order", lazy=True)
 

@@ -1,8 +1,8 @@
-"""Recreated db with gallery images
+"""Recreated db with order created_at
 
-Revision ID: f8a18d7d1ebd
+Revision ID: 4aa3fa74c5cd
 Revises: 
-Create Date: 2025-04-23 12:18:46.950248
+Create Date: 2025-04-23 13:11:31.700875
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f8a18d7d1ebd'
+revision = '4aa3fa74c5cd'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,6 +36,7 @@ def upgrade():
     sa.Column('phone', sa.String(length=20), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('notes', sa.Text(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('product',

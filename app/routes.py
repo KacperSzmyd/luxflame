@@ -73,13 +73,14 @@ def product_details(product_id):
 @main.route("/add-to-cart/<int:product_id>", methods=["POST"])
 def add_to_cart(product_id):
     cart = session.get("cart", [])
+    quantity = int(request.form.get("quantity", 1))
 
     for item in cart:
         if item["product_id"] == product_id:
-            item["quantity"] += 1
+            item["quantity"] += quantity
             break
     else:
-        cart.append({"product_id": product_id, "quantity": 1})
+        cart.append({"product_id": product_id, "quantity": quantity})
 
     session["cart"] = cart
     session.modified = True
@@ -190,7 +191,6 @@ def order():
                 quantity=item["quantity"],
             )
             db.session.add(order_item)
-
         db.session.commit()
 
         session.pop("cart", None)

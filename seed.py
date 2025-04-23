@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import Product
+from app.models import Product, GalleryImage
 
 app = create_app()
 
@@ -45,3 +45,17 @@ with app.app_context():
         print("Products were added.")
     else:
         print("Products are already in db.")
+
+    if GalleryImage.query.count() == 0:
+        gallery_images = [
+            GalleryImage(filename="g1", description="test gallery 1"),
+            GalleryImage(filename="g2", description="test gallery 2"),
+            GalleryImage(filename="g3", description="test gallery 3"),
+            GalleryImage(filename="g4", description="test gallery 4"),
+            GalleryImage(filename="g5", description="test gallery 5"),
+        ]
+        db.session.bulk_save_objects(gallery_images)
+        db.session.commit()
+        print("Gallery images were added.")
+    else:
+        print("Images are already in db.")

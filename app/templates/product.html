@@ -1,17 +1,24 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="product-detail">
-    <img src="{{ url_for('static', filename='images/' ~ product.image_filename) }}" alt="{{ product.name }}">
-    <div class="info">
-        <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
-        <strong>{{ product.price }} PLN</strong>
+{% block title %}{{ product.name }} - Szczegóły{% endblock %}
 
-        <form method="POST" class="add-form">
-            <label>Ilość:</label>
-            <input type="number" name="quantity" value="1" min="1">
-            <button type="submit">Dodaj do koszyka</button>
-        </form>
+{% block content %}
+<div class="container py-5">
+    <div class="row g-5 align-items-center">
+        <div class="col-md-6 text-center">
+            <img src="{{ url_for('static', filename='images/' + product.image_filename) }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-3">{{ product.name }}</h2>
+            <p class="text-muted">{{ product.description }}</p>
+            <h4 class="text-success fw-bold mb-4">{{ product.price }} PLN</h4>
+
+            <form action="{{ url_for('main.add_to_cart', product_id=product.id) }}" method="POST">
+                <div class="input-group" style="max-width: 240px;">
+                    <input type="number" name="quantity" class="form-control" value="1" min="1">
+                    <button type="submit" class="btn btn-success">Dodaj do koszyka</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -32,3 +32,9 @@ class OrderItem(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
 
     product = db.relationship("Product")
+
+
+class GalleryImage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(255), nullable=True)

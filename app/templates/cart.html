@@ -1,42 +1,46 @@
 {% extends "base.html" %}
+{% block title %}Twój koszyk{% endblock %}
+
 {% block content %}
-<h1 class="center">Twój koszyk</h1>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Twój koszyk</h2>
 
-{% if products %}
-    <ul class="products">
-        {% for item in products %}
-        <li class="product">
-            <form method="POST" action="{{ url_for('main.remove_from_cart', product_id=item.product.id) }}" class="remove-btn">
-                <button type="submit" title="Usuń">✕</button>
-            </form>
-    
-            <h3>{{ item.product.name }}</h3>
-            <p>
-                Ilość:
-                <form class="quantity-form" method="POST" action="{{ url_for('main.update_cart', product_id=item.product.id, action='decrease') }}">
-                    <button type="submit">−</button>
-                </form>
-    
-                {{ item.quantity }}
-    
-                <form class="quantity-form" method="POST" action="{{ url_for('main.update_cart', product_id=item.product.id, action='increase') }}">
-                    <button type="submit">+</button>
-                </form>
-            </p>
-            <p>Suma: {{ item.subtotal }} PLN</p>
-        </li>
-        {% endfor %}
-    </ul>
-    <h2 class="center">Razem: {{ total }} PLN</h2>
+    {% if products %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+            {% for item in products %}
+            <div class="col">
+                <div class="card border-success h-100 position-relative">
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('main.remove_from_cart', product_id=item.product.id) }}" class="position-absolute top-0 end-0 m-2">
+                            <button type="submit" class="btn-close" aria-label="Usuń"></button>
+                        </form>
+                        <h5 class="card-title">{{ item.product.name }}</h5>
+                        <p class="card-text">Ilość: {{ item.quantity }}</p>
+                        <p class="card-text"><strong>Suma: {{ item.subtotal }} PLN</strong></p>
 
-    <div class="center" style="text-align: center;">
-        <a class="button-link" href="{{ url_for('main.order') }}">Przejdź do zamówienia</a>
-        <a class="button-link" href="{{ url_for('main.index') }}">← Wróć do sklepu</a>
+                        <form method="POST" action="{{ url_for('main.update_cart', product_id=item.product.id, action='decrease') }}" class="d-inline">
+                            <button type="submit" class="btn btn-outline-success btn-sm">−</button>
+                        </form>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <form method="POST" action="{{ url_for('main.update_cart', product_id=item.product.id, action='increase') }}" class="d-inline">
+                            <button type="submit" class="btn btn-outline-success btn-sm">+</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <h4>Razem: {{ total }} PLN</h4>
+            <a href="{{ url_for('main.order') }}" class="btn btn-success mt-3">Przejdź do zamówienia</a>
+        </div>
+    {% else %}
+        <p class="text-center text-muted">Koszyk jest pusty.</p>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">← Wróć do sklepu</a>
     </div>
-{% else %}
-    <p class="center">Koszyk jest pusty.</p>
-    <div class="center" style="text-align: center;">
-        <a class="button-link" href="{{ url_for('main.index') }}">← Wróć do sklepu</a>
-    </div>
-{% endif %}
+</div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash
-from .models import Product, Order, OrderItem
+from .models import Product, Order, OrderItem, GalleryImage
 from app import db
 
 main = Blueprint("main", __name__)
@@ -18,7 +18,8 @@ def about():
 
 @main.route("/gallery")
 def gallery():
-    return render_template("gallery.html")
+    images = GalleryImage.query.all()
+    return render_template("gallery.html", images=images)
 
 
 @main.route("/terms")

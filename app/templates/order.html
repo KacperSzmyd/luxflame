@@ -1,27 +1,64 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center">Dane do zamówienia</h1>
+<div class="container py-5">
+    <h1 class="text-center mb-4">Dane do zamówienia</h1>
 
-<div class="card">
-<form method="POST" class="order-form">
-    <div class="form-group">
-        <input type="text" name="first_name" placeholder="Imię" required>
-        <input type="text" name="last_name" placeholder="Nazwisko" required>
+    <div class="card border-success shadow">
+        <div class="card-body">
+            <form method="POST">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="first_name" class="form-label">Imię</label>
+                        <input type="text" name="first_name" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="last_name" class="form-label">Nazwisko</label>
+                        <input type="text" name="last_name" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="company_name" class="form-label">Nazwa firmy (opcjonalnie)</label>
+                        <input type="text" name="company_name" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nip" class="form-label">NIP (opcjonalnie)</label>
+                        <input type="text" name="nip" class="form-control">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="street" class="form-label">Ulica i numer domu</label>
+                        <input type="text" name="street" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="city" class="form-label">Miasto</label>
+                        <input type="text" name="city" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="postal_code" class="form-label">Kod pocztowy</label>
+                        <input type="text" name="postal_code" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Numer telefonu</label>
+                        <input type="text" name="phone" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Adres e-mail</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="notes" class="form-label">Uwagi do zamówienia (opcjonalne)</label>
+                        <textarea name="notes" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-12 d-grid">
+                        <button type="submit" class="btn btn-success">Zamawiam</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <input type="text" name="company_name" placeholder="Nazwa firmy (opcjonalnie)">
-    <input type="text" name="nip" placeholder="NIP (opcjonalnie)">
-    
-    <input type="text" name="street" placeholder="Ulica i numer domu" required>
-    <input type="text" name="city" placeholder="Miasto" required>
-    <input type="text" name="postal_code" placeholder="Kod pocztowy" required>
-    
-    <input type="text" name="phone" placeholder="Numer telefonu" required>
-    <input type="email" name="email" placeholder="Adres e-mail" required>
-    
-    <textarea name="notes" placeholder="Uwagi do zamówienia (opcjonalne)"></textarea>
-
-    <button type="submit">Zamawiam</button>
-</form>
 </div>
 {% endblock %}

@@ -1,8 +1,8 @@
 """Recreated db with gallery images
 
-Revision ID: dcbea28caa35
+Revision ID: f8a18d7d1ebd
 Revises: 
-Create Date: 2025-04-23 12:15:25.804478
+Create Date: 2025-04-23 12:18:46.950248
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dcbea28caa35'
+revision = 'f8a18d7d1ebd'
 down_revision = None
 branch_labels = None
 depends_on = None

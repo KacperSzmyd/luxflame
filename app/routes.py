@@ -1,8 +1,22 @@
-from flask import Blueprint, render_template, session, redirect, url_for, request, flash
+from flask import (
+    Blueprint,
+    render_template,
+    session,
+    redirect,
+    url_for,
+    request,
+    flash,
+    send_from_directory,
+)
 from .models import Product, Order, OrderItem, GalleryImage
 from app import db
 
 main = Blueprint("main", __name__)
+
+
+@main.route("/robots.txt")
+def robots():
+    return send_from_directory("static", "robots.txt")
 
 
 @main.route("/")
@@ -60,7 +74,6 @@ def product_details(product_id):
 def add_to_cart(product_id):
     cart = session.get("cart", [])
 
-    # checking if item is already in cart
     for item in cart:
         if item["product_id"] == product_id:
             item["quantity"] += 1
@@ -131,7 +144,6 @@ def order():
         return redirect(url_for("main.cart"))
 
     if request.method == "POST":
-        # Pobierz dane z formularza
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
         company_name = request.form.get("company_name")
@@ -143,7 +155,6 @@ def order():
         email = request.form.get("email")
         notes = request.form.get("notes")
 
-        # Walidacja wymaganych pól
         required_fields = [
             first_name,
             last_name,
@@ -157,7 +168,6 @@ def order():
             flash("Wszystkie wymagane pola muszą być wypełnione.")
             return redirect(url_for("main.order"))
 
-        # Utwórz zamówienie
         new_order = Order(
             customer_first_name=first_name,
             customer_last_name=last_name,
@@ -173,7 +183,6 @@ def order():
         db.session.add(new_order)
         db.session.commit()
 
-        # Dodaj produkty do zamówienia
         for item in cart:
             order_item = OrderItem(
                 order_id=new_order.id,
@@ -184,10 +193,32 @@ def order():
 
         db.session.commit()
 
-        # Wyczyść koszyk
         session.pop("cart", None)
         flash("Dziękujemy za zamówienie!")
 
         return redirect(url_for("main.index"))
 
     return render_template("order.html")
+
+
+@main.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if username == "admin" and password == "password":
+            session["admin_logged_in"] = True
+            flash("Zalogowano pomyślnie!", "success")
+            return redirect("/admin")
+
+        flash("Nieprawidłowe dane logowania.", "danger")
+
+    return render_template("admin_login.html")
+
+
+@main.route("/admin/logout")
+def admin_logout():
+    session.pop("admin_logged_in", None)
+    flash("Wylogowano pomyślnie.", "info")
+    return redirect(url_for("main.admin_login"))

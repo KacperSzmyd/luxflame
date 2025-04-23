@@ -48,11 +48,11 @@ with app.app_context():
 
     if GalleryImage.query.count() == 0:
         gallery_images = [
-            GalleryImage(filename="g1", description="test gallery 1"),
-            GalleryImage(filename="g2", description="test gallery 2"),
-            GalleryImage(filename="g3", description="test gallery 3"),
-            GalleryImage(filename="g4", description="test gallery 4"),
-            GalleryImage(filename="g5", description="test gallery 5"),
+            GalleryImage(filename="g1.jpg", description="test gallery 1"),
+            GalleryImage(filename="g2.jpg", description="test gallery 2"),
+            GalleryImage(filename="g3.jpg", description="test gallery 3"),
+            GalleryImage(filename="g4.jpg", description="test gallery 4"),
+            GalleryImage(filename="g5.jpg", description="test gallery 5"),
         ]
         db.session.bulk_save_objects(gallery_images)
         db.session.commit()

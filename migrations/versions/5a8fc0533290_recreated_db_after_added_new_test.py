@@ -1,8 +1,8 @@
-"""Recreated db with order created_at
+"""Recreated db after added new test
 
-Revision ID: 4aa3fa74c5cd
+Revision ID: 5a8fc0533290
 Revises: 
-Create Date: 2025-04-23 13:11:31.700875
+Create Date: 2025-04-23 13:38:23.795616
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4aa3fa74c5cd'
+revision = '5a8fc0533290'
 down_revision = None
 branch_labels = None
 depends_on = None
